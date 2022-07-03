@@ -1,21 +1,6 @@
-import random
-import string
 from faker import Faker
 import requests
-# import csv
 import pandas as pd
-
-def get_password(length: int = 10) -> str:
-    """
-    generate password
-    """
-
-    password = ''
-    chars = string.ascii_letters + string.digits + string.punctuation
-    for _ in range(length):
-        password += random.choice(chars)
-
-    return password
 
 
 def get_requirements() -> str:
@@ -59,36 +44,34 @@ def get_astronauts() -> str:
 
     return astronauts
 
-def get_mean() -> str:
+
+def get_mean(number_of_decimals: int = 2) -> str:
     """
     Read hw.csv file and calculate average height, average weight in cm and kg respectively
     """
 
+    # function convert inches to sm
     def inches_to_sm(value: float) -> float:
         k = 2.54
         return value * k
 
-
+    # function convert pounds to kg
     def pounds_to_kg(value: float) -> float:
         k = 0.453592
         return value * k
 
     file_name = 'hw.csv'
+    # create pandas data frame
+    df = pd.read_csv(file_name)
 
-    #f = open(file_name, "r")
-    #for x in f:
-    #    data.append()
-    #f.close()
+    # get mean of Height $ Weight
+    height_mean = df[' "Height(Inches)"'].mean()
+    weight_mean = df[' "Weight(Pounds)"'].mean()
 
+    # convert Height to sm $ Weight to kg and round values
+    height_sm = round(inches_to_sm(height_mean), number_of_decimals)
+    weight_kg = round(pounds_to_kg(weight_mean), number_of_decimals)
 
-    #with open(file_name) as f:
-    #    reader = csv.DictReader(f, quoting=csv.QUOTE_NONNUMERIC)
-    #    for row in reader:
-    #        height += str(row['Index']), str(row['Height(Inches)'])
+    result = 'Height_mean_sm: ' + str(height_sm) + ', ' + 'Weight_mean_kg: ' + str(weight_kg)
 
-    height = ''
-    weight = ''
-
-    data = pd.read_csv(file_name)
-    #data['Height(Inches)'] = pd.to_numeric()
-    return data.to_string()
+    return result
