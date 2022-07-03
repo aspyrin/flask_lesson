@@ -54,7 +54,7 @@ def mean():
     Task #4
     Read hw.csv file and calculate average height, average weight in cm and kg respectively
     """
-    result = get_mean(2)
+    result = get_mean()
     return result
 
 

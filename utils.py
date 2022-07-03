@@ -45,10 +45,13 @@ def get_astronauts() -> str:
     return astronauts
 
 
-def get_mean(number_of_decimals: int = 2) -> str:
+def get_mean() -> str:
     """
     Read hw.csv file and calculate average height, average weight in cm and kg respectively
     """
+
+    file_name = 'hw.csv'
+    number_of_decimals = 2
 
     # function convert inches to sm
     def inches_to_sm(value: float) -> float:
@@ -60,7 +63,6 @@ def get_mean(number_of_decimals: int = 2) -> str:
         k = 0.453592
         return value * k
 
-    file_name = 'hw.csv'
     # create pandas data frame
     df = pd.read_csv(file_name)
 
